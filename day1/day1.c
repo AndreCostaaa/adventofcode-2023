@@ -6,21 +6,6 @@
 
 char *digits[9] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
 
-int rev_strncmp(const char *s1, const char *s2, size_t n)
-{
-    for (int i = 0, j = n; i < n; ++i, j--)
-    {
-        if (s1[i] > s2[j])
-        {
-            return 1;
-        }
-        else if (s1[i] < s2[j])
-        {
-            return -1;
-        }
-    }
-    return 0;
-}
 int is_written_digit(const char *buf)
 {
     for (int i = 0; i < 9; ++i)
@@ -74,7 +59,6 @@ int main(void)
             }
         }
         num += last_digit;
-        printf("Found %d\n", num);
         sum += num;
     }
     printf("%d\n", sum);
