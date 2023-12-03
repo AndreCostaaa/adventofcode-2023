@@ -62,5 +62,6 @@ int main(void)
         sum += num;
     }
     printf("%d\n", sum);
+    fclose(f);
     return EXIT_SUCCESS;
 }
