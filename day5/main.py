@@ -27,7 +27,7 @@ def find_value_in_map(map, value):
 
 
 lines = []
-with open("/home/andre/dev/adventofcode/day5/sample.txt", "r") as f:
+with open("sample.txt", "r") as f:
     lines = f.readlines()
 
 
