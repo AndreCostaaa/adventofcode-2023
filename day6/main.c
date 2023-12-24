@@ -37,70 +37,47 @@ int main(void)
     FILE *f = fopen("sample.txt", "r");
 
     char line[256];
-    node_t *head;
 
-    int i = 0;
+    int line_no = 0;
+    long long race_time = 0;
+    long long distance_to_beat = 0;
     const char delimiter = ' ';
     while (fgets(line, 256, f))
     {
-
-        char *token = strtok(line, &delimiter);
-        int race = 0;
-        while (token != NULL)
+        char buffer[256] = {0};
+        for (int i = 0, j = 0; i < 256; ++i)
         {
-
-            if (isdigit(*token))
+            if (isdigit(line[i]))
             {
-                if (i == 0)
-                {
-                    node_t *node = calloc(1, sizeof(node_t));
-
-                    node->race.race_time_ms = atoi(token);
-                    if (!head)
-                    {
-                        head = node;
-                    }
-                    else
-                    {
-                        append(head, node);
-                    }
-                }
-                else
-                {
-                    node_t *node = head;
-                    for (int i = 0; i < race && node; ++i)
-                    {
-                        node = node->next;
-                    }
-
-                    node->race.distance_to_beat = atoi(token);
-                }
-
-                ++race;
+                buffer[j++] = line[i];
             }
-            token = strtok(NULL, &delimiter);
         }
-        ++i;
+        long long number = atoll(buffer);
+
+        if (line_no == 0)
+        {
+            race_time = number;
+        }
+        else
+        {
+            distance_to_beat = number;
+        }
+        line_no++;
     }
 
-    node_t *curr = head;
-    int combinations = 1;
-    while (curr)
+    long long combinations = 0;
+
+    for (long long i = 0; i < race_time; ++i)
     {
+        long long speed = i * BOAT_SPEED;
 
-        for (int i = 0; i < curr->race.race_time_ms; ++i)
+        long long distance = speed * (race_time - i);
+
+        if (distance > distance_to_beat)
         {
-            int speed = i * BOAT_SPEED;
-
-            int distance = speed * (curr->race.race_time_ms - i);
-
-            if (distance > curr->race.distance_to_beat)
-            {
-                ++curr->race.combinations_that_beat;
-            }
+            ++combinations;
         }
-        combinations *= curr->race.combinations_that_beat;
-        curr = curr->next;
     }
+
     printf("%d\n", combinations);
 }
