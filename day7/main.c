@@ -79,6 +79,10 @@ GameRank getGameRank(const game_t *game)
         }
         return TwoPair;
     }
+    if (max == 3)
+    {
+        int two_pair
+    }
 }
 compare_games(const void *gameA, const void *gameB)
 {
